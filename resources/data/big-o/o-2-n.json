@@ -1,0 +1,36 @@
+{
+  "title": "O(2ⁿ) — Exponential Time",
+  "description": "An algorithm runs in O(2ⁿ) time when each additional input element doubles the total work required. This is exponential growth, and it becomes catastrophically slow very quickly. Even with just 30 elements, you're looking at over a billion operations. Exponential algorithms are typically only feasible for very small inputs (n < 20-25). They often arise from brute-force solutions that explore every possible combination or subset.",
+  "intuition": "Imagine you're trying to guess a password by trying every possible combination. If the password has 1 character and there are 2 options (0 or 1), you have 2 possibilities. Add a second character, and you have 4 possibilities (00, 01, 10, 11). Add a third, and you have 8. Each new character doubles the number of combinations. With 10 characters, you have 1,024 combinations. With 20 characters, you have over a million. With 30 characters, you have over a billion. That's exponential growth: it explodes faster than almost anything else.",
+  "examples": [
+    {
+      "title": "Fibonacci (Naive Recursive)",
+      "pseudocode": "function fibonacci(n):\n    if n <= 1:\n        return n\n    \n    return fibonacci(n - 1) + fibonacci(n - 2)",
+      "explanation": "The naive recursive Fibonacci recalculates the same values repeatedly. Each call branches into two more calls, creating a binary tree of recursion. The tree has roughly 2ⁿ nodes, making this exponential. (Note: this can be optimized to O(n) with memoization.)"
+    },
+    {
+      "title": "Power Set (All Subsets)",
+      "pseudocode": "function powerSet(set):\n    if set is empty:\n        return [[]]\n    \n    element = set[0]\n    rest = set[1...end]\n    subsetsWithoutElement = powerSet(rest)\n    subsetsWithElement = []\n    \n    for each subset in subsetsWithoutElement:\n        newSubset = subset + [element]\n        subsetsWithElement.append(newSubset)\n    \n    return subsetsWithoutElement + subsetsWithElement",
+      "explanation": "A set with n elements has 2ⁿ possible subsets. For each element, you decide \"include it or don't\" — that's 2 choices per element, compounding across all elements. Generating all subsets is inherently O(2ⁿ)."
+    },
+    {
+      "title": "Tower of Hanoi",
+      "pseudocode": "function solveHanoi(n, source, destination, auxiliary):\n    if n == 1:\n        move disk from source to destination\n        return\n    \n    solveHanoi(n - 1, source, auxiliary, destination)\n    move disk from source to destination\n    solveHanoi(n - 1, auxiliary, destination, source)",
+      "explanation": "Solving the Tower of Hanoi puzzle requires 2ⁿ - 1 moves. Each disk requires twice as many moves as the previous disk. The recursion doubles at each level, creating exponential time complexity."
+    },
+    {
+      "title": "Brute Force Combination Lock",
+      "pseudocode": "function crackLock(n, options):\n    if n == 0:\n        return [[]]\n    \n    smallerCombinations = crackLock(n - 1, options)\n    allCombinations = []\n    \n    for each combination in smallerCombinations:\n        for each option in options:\n            newCombination = combination + [option]\n            allCombinations.append(newCombination)\n    \n    return allCombinations",
+      "explanation": "Trying all possible combinations of n elements where each element has k choices gives O(kⁿ) complexity. For binary choices (k=2), this is O(2ⁿ). The number of combinations explodes exponentially with each additional position."
+    }
+  ],
+  "whatCausesThis": "O(2ⁿ) complexity occurs when you explore all possible combinations or make binary decisions at each step. Common patterns include:\n\n• **Recursive branching without memoization**: Each recursive call makes multiple recursive calls (like naive Fibonacci)\n• **Generating all subsets**: A set of n elements has 2ⁿ subsets (each element is either in or out)\n• **Brute-force search**: Trying every possible combination when each element has 2 choices\n• **Decision trees**: Problems where each step involves making a binary choice, and you explore all branches\n• **Combinatorial problems**: Solving puzzles or optimization problems by trying all possibilities\n\nThe mathematical pattern: When each step doubles the number of possibilities to explore, you get 2ⁿ total work. This happens when you make n binary decisions and must explore all 2ⁿ possible outcomes.\n\nImportant: Not all recursion is exponential. Recursion with memoization, tail recursion, and divide-and-conquer approaches can be efficient. The exponential explosion happens specifically when you recompute the same subproblems repeatedly.",
+  "whyItMatters": "**When It's (Barely) Acceptable:**\nO(2ⁿ) is only acceptable when n is guaranteed to be very small:\n\n• **Tiny inputs**: n ≤ 15-20 items maximum\n• **One-time calculations**: Setup tasks that run once during initialization\n• **No better algorithm exists**: Some problems (like subset sum) are NP-complete and may require exponential time in the worst case\n\nEven with n = 25, you're looking at 33 million operations, which takes noticeable time.\n\n**Where It's Completely Unacceptable:**\nO(2ⁿ) is catastrophically slow for anything but tiny inputs:\n\n• **n = 10**: 1,024 operations — fast\n• **n = 20**: 1,048,576 operations — slow\n• **n = 30**: 1,073,741,824 operations — practically frozen\n• **n = 40**: 1,099,511,627,776 operations — hours or days\n• **n = 50**: Over a quadrillion operations — effectively impossible\n\nNever use O(2ⁿ) algorithms on user-supplied data where n can be large. A user uploading 50 items would make your application unusable.\n\n**Optimization Strategies:**\n• **Memoization**: Cache results to avoid recomputing the same subproblems (can reduce exponential to polynomial)\n• **Dynamic programming**: Build solutions bottom-up instead of top-down recursion\n• **Greedy algorithms**: Accept approximate solutions instead of exploring all possibilities\n• **Branch and bound**: Prune branches that can't lead to better solutions\n• **Heuristics**: Use domain knowledge to avoid exploring unpromising paths\n\nIf you find yourself writing O(2ⁿ) code, strongly consider whether there's an alternative approach.",
+  "keyTakeaways": [
+    "O(2ⁿ) means each additional input element doubles the total work — growth is catastrophic and only feasible for n < 20",
+    "Generating all possible subsets or combinations of n items inherently requires exponential time",
+    "Naive recursive algorithms that don't cache results often create exponential complexity by recomputing the same values",
+    "With n = 30, you're already doing over a billion operations — exponential algorithms become unusable quickly",
+    "Many exponential algorithms can be optimized using memoization, dynamic programming, or accepting approximate solutions"
+  ]
+}

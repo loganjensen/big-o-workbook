@@ -1,0 +1,36 @@
+{
+  "title": "O(n log n) — Linearithmic Time",
+  "description": "An algorithm runs in O(n log n) time when it combines linear and logarithmic components. This typically happens when you need to process each element (O(n)) and for each one, you perform a logarithmic operation (O(log n)). This is the complexity of efficient general-purpose sorting algorithms. It's slower than O(n) but much faster than O(n²), making it the sweet spot for many practical algorithms.",
+  "intuition": "Imagine organizing a pile of papers alphabetically using the \"divide and conquer\" approach. First, you split the pile in half (1 split). Then you split those halves in half (2 more splits). You keep splitting until each pile has just one paper. That's log n splits. Now, you need to merge these tiny piles back together in order, which requires looking at each paper during the merging process — that's the n part. Split (log n) times, touch each paper during merges (n) = n log n total work.",
+  "examples": [
+    {
+      "title": "Merge Sort",
+      "pseudocode": "function mergeSort(array):\n    if length(array) <= 1:\n        return array\n    \n    middle = length(array) / 2\n    left = mergeSort(array[0...middle])\n    right = mergeSort(array[middle...end])\n    \n    return merge(left, right)\n\nfunction merge(left, right):\n    result = []\n    while left and right have elements:\n        if left[0] <= right[0]:\n            result.append(left[0])\n            remove left[0]\n        else:\n            result.append(right[0])\n            remove right[0]\n    \n    append remaining elements\n    return result",
+      "explanation": "Merge sort splits the array in half recursively (log n levels deep), and at each level, merges all n elements back together. Each level does O(n) work, and there are O(log n) levels, giving O(n log n) total."
+    },
+    {
+      "title": "Quick Sort (Average Case)",
+      "pseudocode": "function quickSort(array, low, high):\n    if low < high:\n        pivotIndex = partition(array, low, high)\n        quickSort(array, low, pivotIndex - 1)\n        quickSort(array, pivotIndex + 1, high)\n\nfunction partition(array, low, high):\n    pivot = array[high]\n    i = low - 1\n    \n    for j = low to high - 1:\n        if array[j] < pivot:\n            i = i + 1\n            swap array[i] and array[j]\n    \n    swap array[i + 1] and array[high]\n    return i + 1",
+      "explanation": "Quick sort picks a pivot and partitions the array around it (O(n) work per level). With good pivot choices, the array is split roughly in half each time, creating log n levels of recursion. Total: O(n log n) average case."
+    },
+    {
+      "title": "Heap Sort",
+      "pseudocode": "function heapSort(array):\n    buildHeap(array)              // O(n)\n    \n    for i = length(array) - 1 down to 1:\n        swap array[0] and array[i]\n        heapify(array, 0, i)      // O(log n)\n    \n    return array\n\nfunction heapify(array, index, heapSize):\n    largest = index\n    left = 2 * index + 1\n    right = 2 * index + 2\n    \n    // Find largest among root, left, right\n    // Swap and recurse if needed",
+      "explanation": "Heap sort builds a heap in O(n) time, then repeatedly extracts the maximum element. Each extraction involves heapifying, which is O(log n). Doing this n times gives O(n log n) total."
+    },
+    {
+      "title": "Sorting Then Processing",
+      "pseudocode": "function findDuplicates(array):\n    sortedArray = sort(array)     // O(n log n)\n    duplicates = []\n    \n    for i = 0 to length(sortedArray) - 2:\n        if sortedArray[i] == sortedArray[i + 1]:\n            duplicates.append(sortedArray[i])\n    \n    return duplicates",
+      "explanation": "Many algorithms sort the data first (O(n log n)), then do linear work (O(n)) on the sorted data. The sorting dominates, so the overall complexity is O(n log n)."
+    }
+  ],
+  "whatCausesThis": "O(n log n) complexity occurs when you combine linear and logarithmic operations. Common patterns include:\n\n• **Divide-and-conquer sorting**: Algorithms that recursively split data (log n levels) and merge or process all elements at each level (n work per level)\n• **Efficient sorting algorithms**: Merge sort, heap sort, and quick sort (average case) all achieve O(n log n)\n• **Sort-then-process patterns**: Sorting data first, then doing linear work on the sorted result\n• **Tree-based operations on all elements**: Building or traversing trees where each of n elements requires log n tree operations\n\nThe mathematical reason: If you do O(log n) work for each of n elements, or do O(n) work at each of log n levels, you get O(n × log n) = O(n log n).\n\nImportant distinction: O(n log n) is fundamentally different from O(n) + O(log n). The former means you're combining them multiplicatively (n times log n), while the latter is additive. In Big-O notation, O(n) + O(log n) simplifies to just O(n) because n dominates log n.",
+  "whyItMatters": "**When It's Acceptable:**\nO(n log n) is considered excellent for any problem requiring comparisons between elements. It's the best possible complexity for general-purpose comparison-based sorting. For most practical purposes, O(n log n) is efficient enough — modern computers can sort millions of items in seconds.\n\nO(n log n) is the standard complexity for:\n• Sorting user data before display\n• Preprocessing data to enable faster queries\n• Many computational geometry algorithms\n• Solving problems that benefit from sorted data\n\n**Where It Becomes Problematic:**\nO(n log n) becomes concerning in these scenarios:\n\n• **Massive datasets**: Sorting billions of records takes considerable time even at O(n log n)\n• **Real-time systems**: If you need instant response and n is large, O(n log n) might be too slow\n• **Repeated operations**: Sorting the same data repeatedly wastes time — sort once and maintain sorted order\n• **When O(n) alternatives exist**: Counting sort, radix sort, and bucket sort can achieve O(n) for specific data types\n\n**Critical comparison:**\nThe gap between O(n log n) and O(n²) is enormous:\n• For 1,000 items: O(n log n) ≈ 10,000 steps vs O(n²) ≈ 1,000,000 steps\n• For 1,000,000 items: O(n log n) ≈ 20,000,000 steps vs O(n²) ≈ 1,000,000,000,000 steps\n\nAlways prefer O(n log n) sorting over O(n²) sorting (like bubble sort) in production code.",
+  "keyTakeaways": [
+    "O(n log n) is the complexity of efficient sorting algorithms like merge sort, quick sort, and heap sort",
+    "It combines linear work (n) with logarithmic depth (log n) — you touch every element multiple times, but only logarithmically many times",
+    "This is the best possible complexity for comparison-based sorting — you can't sort faster without additional assumptions about the data",
+    "O(n log n) is dramatically faster than O(n²) for large inputs, making it acceptable for most practical sorting needs",
+    "If you're sorting data repeatedly, consider sorting once and maintaining sorted order, or using data structures that stay sorted automatically"
+  ]
+}

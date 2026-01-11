@@ -1,0 +1,41 @@
+{
+  "title": "O(n) — Linear Time",
+  "description": "An algorithm runs in O(n) time when the work required grows directly in proportion to the input size. Double the input, double the time. Triple the input, triple the time. This is the most common complexity you'll encounter in everyday programming. It means you're processing each element roughly once, which is often the minimum you need to do to solve a problem.",
+  "intuition": "Imagine you're a teacher taking attendance in a classroom. You have a list of 30 students, and you call out each name once, waiting for a response. If tomorrow you have 60 students, you'll need to call out twice as many names — it takes twice as long. That's linear time: the time grows in direct proportion to the number of items you're processing.",
+  "examples": [
+    {
+      "title": "Finding Maximum Value",
+      "pseudocode": "function findMax(array):\n    max = array[0]\n    \n    for each element in array:\n        if element > max:\n            max = element\n    \n    return max",
+      "explanation": "To find the maximum value, you must look at every element at least once. There's no way around it — you can't know which element is largest without checking them all. This is O(n) because you iterate through the array exactly once."
+    },
+    {
+      "title": "Summing Array Elements",
+      "pseudocode": "function sum(array):\n    total = 0\n    \n    for each element in array:\n        total = total + element\n    \n    return total",
+      "explanation": "Computing a sum requires visiting each element exactly once to add it to the running total. The loop executes n times for an array of size n, making this a classic O(n) operation."
+    },
+    {
+      "title": "Linear Search",
+      "pseudocode": "function linearSearch(array, target):\n    for i = 0 to length(array) - 1:\n        if array[i] == target:\n            return i\n    \n    return not found",
+      "explanation": "Searching for a value in an unsorted array requires checking elements one by one until you find it or reach the end. In the worst case (value isn't there or is at the end), you check all n elements."
+    },
+    {
+      "title": "Filtering Array",
+      "pseudocode": "function filterEven(array):\n    result = []\n    \n    for each element in array:\n        if element % 2 == 0:\n            result.append(element)\n    \n    return result",
+      "explanation": "Filtering requires examining each element to decide whether to include it. You can't skip any elements without missing potential matches, so this is O(n)."
+    },
+    {
+      "title": "String Character Count",
+      "pseudocode": "function countCharacter(string, char):\n    count = 0\n    \n    for each character in string:\n        if character == char:\n            count = count + 1\n    \n    return count",
+      "explanation": "Counting how many times a character appears in a string requires checking every character. The number of checks grows linearly with the string length."
+    }
+  ],
+  "whatCausesThis": "O(n) complexity occurs when you need to process each input element a constant number of times. Common patterns include:\n\n• **Single loops over data**: Any time you iterate through an array, list, or string once\n• **Sequential processing**: Reading a file line by line, processing stream data, or traversing a linked list\n• **Unavoidable work**: When the problem requires examining every element (finding max, computing sum, checking conditions)\n• **Building output from input**: Creating a filtered copy, transforming each element, or mapping values\n\nThe key characteristic is proportional growth. If your algorithm has one loop that goes from 0 to n, it's likely O(n). Even if you have two separate loops that each run n times, it's still O(n) — specifically O(2n), but we drop the constant factor. Three loops? Still O(n). The pattern is O(c × n) where c is constant, which simplifies to O(n).\n\nImportant: Early termination doesn't change the worst-case complexity. A search that might find the target on the first try is still O(n) in the worst case because you might have to check every element.",
+  "whyItMatters": "**When It's Acceptable:**\nO(n) is perfectly acceptable for most applications. It's often the best you can do when you need to examine every piece of input data. For modern computers, processing a million items in O(n) time happens in milliseconds. O(n) operations are the bread and butter of programming — you'll write them constantly.\n\nCommon scenarios where O(n) is standard:\n• Processing every record in a dataset\n• Validating user input fields\n• Rendering lists in user interfaces\n• Computing statistics (sum, average, min, max)\n• File I/O operations\n\n**Where It Becomes Concerning:**\nO(n) becomes problematic in these situations:\n\n• **Nested inside other loops**: An O(n) operation inside an O(n) loop becomes O(n²), which scales poorly\n• **Very large datasets**: Processing billions of records in O(n) time takes hours, not milliseconds\n• **Real-time constraints**: If you need sub-millisecond response times and n is large, O(n) might be too slow\n• **Repeated operations**: Searching an array 1,000 times with O(n) search means O(n × 1,000) total work — consider O(log n) alternatives\n\nOptimization opportunities: If you're doing O(n) searches repeatedly, consider preprocessing the data into a hash table (O(n) setup, O(1) lookups). If you're filtering data multiple times, consider doing it once and caching the result.",
+  "keyTakeaways": [
+    "O(n) means the time grows directly in proportion to input size — double the input, double the time",
+    "Single loops over your data are typically O(n) — you're touching each element once",
+    "Many problems can't be solved faster than O(n) because you must examine every element",
+    "O(n) is usually fine for modern computers, but watch out for nesting O(n) operations inside loops",
+    "If you're doing the same O(n) operation repeatedly, consider preprocessing into a more efficient data structure"
+  ]
+}

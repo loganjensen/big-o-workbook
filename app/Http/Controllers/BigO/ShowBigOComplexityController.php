@@ -14,8 +14,14 @@ abstract class ShowBigOComplexityController extends Controller
     abstract protected function getSlug(): string;
 
     /**
-     * Handle the incoming request.
-     */
+         * Render the Big-O complexity page for the controller's slug.
+         *
+         * Loads the complexity data for the current slug and returns an Inertia response
+         * rendering the 'BigO/Show' view with the following props: `complexity`, `slug`,
+         * and `allComplexities`.
+         *
+         * @return Response An Inertia response that renders the Big-O detail view.
+         */
     public function __invoke(): Response
     {
         $slug = $this->getSlug();
@@ -29,7 +35,10 @@ abstract class ShowBigOComplexityController extends Controller
     }
 
     /**
-     * Load complexity data from JSON file.
+     * Load complexity data for the given slug from the resource data/big-o JSON file.
+     *
+     * @param string $slug Slug identifying the complexity JSON file (filename without the `.json` extension).
+     * @return array Associative array decoded from the JSON file.
      */
     protected function loadComplexityData(string $slug): array
     {

@@ -38,9 +38,15 @@ const props = defineProps<Props>();
 
 // Mark this page as visited in localStorage for progress tracking
 onMounted(() => {
-    const visited = JSON.parse(
-        localStorage.getItem('bigOVisited') || '[]'
-    ) as string[];
+    let visited: string[] = [];
+
+    try {
+        const storedValue = localStorage.getItem('bigOVisited');
+        visited = JSON.parse(storedValue || '[]') as string[];
+    } catch (error) {
+        console.warn('Failed to parse bigOVisited from localStorage:', error);
+        visited = [];
+    }
 
     if (!visited.includes(props.slug)) {
         visited.push(props.slug);

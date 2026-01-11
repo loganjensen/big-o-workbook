@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
+import { login } from '@/routes';
 
 interface Complexity {
     slug: string;
@@ -15,13 +14,6 @@ interface Props {
 }
 
 defineProps<Props>();
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Big-O Complexities',
-        href: '/big-o',
-    },
-];
 </script>
 
 <template>
@@ -32,7 +24,22 @@ const breadcrumbs: BreadcrumbItem[] = [
         />
     </Head>
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <div class="min-h-screen bg-background">
+        <!-- Simple Header -->
+        <header class="border-b border-border bg-card">
+            <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+                <Link href="/big-o" class="text-xl font-bold text-foreground">
+                    Big-O Workbook
+                </Link>
+                <Link
+                    v-if="!$page.props.auth?.user"
+                    :href="login()"
+                    class="rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                    Log in
+                </Link>
+            </div>
+        </header>
         <div class="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="space-y-4">
@@ -112,5 +119,5 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </p>
             </div>
         </div>
-    </AppLayout>
+    </div>
 </template>

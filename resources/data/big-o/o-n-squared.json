@@ -1,0 +1,41 @@
+{
+  "title": "O(n²) — Quadratic Time",
+  "description": "An algorithm runs in O(n²) time when the work required grows with the square of the input size. Double the input, and you quadruple the work. This typically happens when you have nested loops where each loop runs proportional to the input size. While O(n²) is acceptable for small datasets, it becomes impractical quickly as data grows. This is often a red flag in code reviews and a common target for optimization.",
+  "intuition": "Imagine you're organizing a round-robin tournament where every player must face every other player exactly once. With 4 players, you need 6 matches. With 8 players, you need 28 matches. With 16 players, you need 120 matches. The number of matches grows quadratically because each player must face all other players. That's O(n²): every element must interact with every other element.",
+  "examples": [
+    {
+      "title": "Bubble Sort",
+      "pseudocode": "function bubbleSort(array):\n    n = length(array)\n    \n    for i = 0 to n - 1:           // Outer loop: n times\n        for j = 0 to n - i - 2:   // Inner loop: n times\n            if array[j] > array[j + 1]:\n                swap array[j] and array[j + 1]\n    \n    return array",
+      "explanation": "Bubble sort uses nested loops: the outer loop runs n times, and for each iteration, the inner loop also runs roughly n times. This gives n × n = n² comparisons and potential swaps."
+    },
+    {
+      "title": "Finding All Pairs",
+      "pseudocode": "function findAllPairs(array):\n    pairs = []\n    \n    for i = 0 to length(array) - 1:\n        for j = i + 1 to length(array) - 1:\n            pairs.append([array[i], array[j]])\n    \n    return pairs",
+      "explanation": "Finding all possible pairs requires comparing each element with every other element. The first element pairs with n-1 others, the second with n-2 others, and so on. This sums to roughly n²/2, which is O(n²)."
+    },
+    {
+      "title": "Checking for Duplicates (Naive)",
+      "pseudocode": "function hasDuplicates(array):\n    for i = 0 to length(array) - 1:\n        for j = i + 1 to length(array) - 1:\n            if array[i] == array[j]:\n                return true\n    \n    return false",
+      "explanation": "The naive approach to finding duplicates checks each element against every other element. Even though it can return early, the worst case (no duplicates) requires checking all pairs, which is O(n²)."
+    },
+    {
+      "title": "Nested Iteration Over Same Collection",
+      "pseudocode": "function compareAll(array):\n    results = []\n    \n    for each item1 in array:\n        for each item2 in array:\n            result = compare(item1, item2)\n            results.append(result)\n    \n    return results",
+      "explanation": "Any time you iterate over a collection inside another iteration over the same (or similar-sized) collection, you get O(n²). Each of the n elements in the outer loop triggers n iterations of the inner loop."
+    },
+    {
+      "title": "Selection Sort",
+      "pseudocode": "function selectionSort(array):\n    for i = 0 to length(array) - 1:\n        minIndex = i\n        \n        for j = i + 1 to length(array) - 1:\n            if array[j] < array[minIndex]:\n                minIndex = j\n        \n        swap array[i] and array[minIndex]\n    \n    return array",
+      "explanation": "Selection sort repeatedly finds the minimum element from the unsorted portion. The outer loop runs n times, and the inner loop runs n-i times for each. Total comparisons: n + (n-1) + (n-2) + ... + 1 = n²/2, which is O(n²)."
+    }
+  ],
+  "whatCausesThis": "O(n²) complexity occurs when you perform a linear amount of work for each element in your input. Common patterns include:\n\n• **Nested loops over the same data**: For each element, you iterate through all elements again\n• **All-pairs operations**: Computing something for every pair of elements (distances, comparisons, interactions)\n• **Inefficient sorting algorithms**: Bubble sort, selection sort, insertion sort\n• **Nested linear searches**: Searching for something (O(n)) inside a loop that itself runs n times\n• **Cartesian products**: Combining every element from one set with every element from another equal-sized set\n\nThe mathematical pattern: When you have code like `for i in array: for j in array: ...`, you're doing n × n = n² work.\n\nSubtle case: Even when the inner loop doesn't run the full n iterations, you can still get O(n²). For example, summing 1 + 2 + 3 + ... + n equals n(n+1)/2, which is O(n²) even though no single iteration does n work.",
+  "whyItMatters": "**When It's Acceptable:**\nO(n²) is acceptable for small, bounded datasets where n is guaranteed to stay small:\n\n• Small configuration lists (< 100 items)\n• Processing user selections (typically < 50 items)\n• One-time setup operations with limited data\n• Algorithms where the constant factors are tiny and n is constrained\n\nFor n < 100, O(n²) often runs fast enough that optimization isn't worth the added complexity.\n\n**Where It Becomes Dangerous:**\nO(n²) becomes problematic quickly as n grows:\n\n• **n = 1,000**: 1,000,000 operations — starts to feel slow\n• **n = 10,000**: 100,000,000 operations — noticeably sluggish\n• **n = 100,000**: 10,000,000,000 operations — practically unusable\n\nCommon scenarios where O(n²) causes problems:\n• Processing user-uploaded data (you can't control the size)\n• Database record operations (tables grow over time)\n• Real-time systems (quadratic algorithms can't meet timing requirements)\n• Mobile devices (battery and CPU constraints)\n\n**Critical Optimization Opportunities:**\nMany O(n²) algorithms have O(n) or O(n log n) alternatives:\n• Duplicate detection: Use a hash set instead of nested loops (O(n²) → O(n))\n• Sorting: Use merge sort instead of bubble sort (O(n²) → O(n log n))\n• Searching repeatedly: Preprocess into a hash table (O(n²) → O(n))\n\nAlways question O(n²) code during reviews. It's often a sign that a better algorithm exists.",
+  "keyTakeaways": [
+    "O(n²) means doubling the input quadruples the work — growth accelerates rapidly and becomes problematic fast",
+    "Nested loops over the same collection are the classic cause of quadratic complexity",
+    "O(n²) is acceptable for small, bounded datasets but becomes unusable as data grows beyond a few thousand items",
+    "Many common O(n²) patterns have faster alternatives using hash tables, sorting, or better algorithms",
+    "During code reviews, O(n²) complexity is a red flag — always ask if there's a better approach"
+  ]
+}

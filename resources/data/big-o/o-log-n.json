@@ -1,0 +1,36 @@
+{
+  "title": "O(log n) — Logarithmic Time",
+  "description": "An algorithm runs in O(log n) time when it reduces the problem size by a consistent fraction with each step. The most common example is cutting the search space in half repeatedly. As your input doubles in size, you only need one additional step. This means logarithmic algorithms scale incredibly well — even with millions of items, you're only doing dozens of operations.",
+  "intuition": "Imagine you're looking for a word in a physical dictionary. You don't start at page 1 and flip through every page. Instead, you open somewhere in the middle. If your word comes alphabetically before what you see, you ignore the entire second half of the dictionary. You've just eliminated half the pages in one step. You repeat this process: open the middle of the remaining pages, eliminate half again. A 1,000-page dictionary might only require about 10 of these \"cut in half\" steps to find any word. That's logarithmic growth.",
+  "examples": [
+    {
+      "title": "Binary Search",
+      "pseudocode": "function binarySearch(sortedArray, target):\n    left = 0\n    right = length(sortedArray) - 1\n    \n    while left <= right:\n        middle = (left + right) / 2\n        \n        if sortedArray[middle] == target:\n            return middle\n        else if sortedArray[middle] < target:\n            left = middle + 1\n        else:\n            right = middle - 1\n    \n    return not found",
+      "explanation": "Binary search is the quintessential O(log n) algorithm. At each step, you eliminate half of the remaining possibilities. With 1,000 items, you need at most 10 comparisons. With 1,000,000 items, you need at most 20. That's the power of logarithmic scaling."
+    },
+    {
+      "title": "Balanced Binary Search Tree Lookup",
+      "pseudocode": "function searchBST(node, target):\n    if node is null:\n        return not found\n    \n    if node.value == target:\n        return node\n    else if target < node.value:\n        return searchBST(node.left, target)\n    else:\n        return searchBST(node.right, target)",
+      "explanation": "Searching in a balanced binary search tree is O(log n) because at each node, you eliminate roughly half of the remaining tree. You only follow one path from root to leaf, and in a balanced tree, that path length is logarithmic."
+    },
+    {
+      "title": "Finding Position to Insert in Sorted Array",
+      "pseudocode": "function findInsertPosition(sortedArray, value):\n    left = 0\n    right = length(sortedArray)\n    \n    while left < right:\n        middle = (left + right) / 2\n        \n        if sortedArray[middle] < value:\n            left = middle + 1\n        else:\n            right = middle\n    \n    return left",
+      "explanation": "Finding where to insert a value in a sorted array uses the same halving strategy as binary search. You narrow down the valid position by repeatedly cutting the search space in half."
+    },
+    {
+      "title": "Repeatedly Dividing",
+      "pseudocode": "function countDivisions(n):\n    count = 0\n    while n > 1:\n        n = n / 2\n        count = count + 1\n    return count",
+      "explanation": "Any algorithm that repeatedly divides a number by a constant factor is O(log n). This pattern appears in many contexts: finding how many times to double something to reach a target, computing exponents efficiently, or traversing tree heights."
+    }
+  ],
+  "whatCausesThis": "O(log n) complexity occurs when you can eliminate a constant fraction of the remaining work with each step. Common patterns include:\n\n• **Dividing the search space**: Binary search, binary search trees, and similar \"cut in half\" strategies\n• **Balanced tree traversal**: Walking from root to leaf in balanced trees (height is logarithmic)\n• **Repeated division or multiplication**: Any algorithm that divides or multiplies by a constant factor in a loop\n• **Skip-based data structures**: Skip lists and similar structures that allow jumping over multiple elements\n\nThe critical insight is that you're not looking at every element. You're making decisions that allow you to ignore large portions of the input. Each decision reduces the problem size exponentially, which means the number of decisions you need grows logarithmically.\n\nNote: The base of the logarithm (2, 10, e) doesn't matter for Big-O notation. log₂(n) and log₁₀(n) differ only by a constant factor, and Big-O ignores constant factors. We typically assume base 2 for binary operations.",
+  "whyItMatters": "**When It's Acceptable:**\nO(log n) is extremely efficient and acceptable in almost any context. It's the second-best complexity you can achieve after O(1). Algorithms with logarithmic complexity scale beautifully — even with billions of elements, you're only performing a few dozen operations. In practice, O(log n) often feels nearly as fast as O(1) for reasonable input sizes.\n\n**Where It Becomes Critical:**\nThe difference between O(log n) and O(n) becomes dramatic at scale:\n\n• **Large datasets**: With 1 billion items, O(log n) takes about 30 steps, while O(n) takes 1 billion steps\n• **Repeated operations**: If you're searching thousands of times, the cumulative difference between O(log n) and O(n) searches becomes massive\n• **Real-time systems**: When you need guaranteed fast response times, O(log n) provides predictable performance even as data grows\n\nCommon trade-offs:\n• Maintaining sorted order or balanced trees (for O(log n) searches) requires extra work during insertions\n• Sometimes an O(n) linear scan is faster for small datasets because it's simpler and has better cache locality\n• Binary search requires sorted data — if you're searching once and the data isn't sorted, sorting first might not be worth it",
+  "keyTakeaways": [
+    "O(log n) means you eliminate a constant fraction of the problem with each step — typically cutting it in half",
+    "Binary search is the classic example: with 1 million items, you find your target in about 20 steps",
+    "Logarithmic algorithms scale incredibly well — doubling the input size only adds one additional step",
+    "You need sorted data or balanced structures to achieve O(log n) search times",
+    "For small datasets (less than 100 items), the overhead of O(log n) structures might not be worth it compared to simple linear search"
+  ]
+}

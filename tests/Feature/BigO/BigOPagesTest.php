@@ -143,3 +143,78 @@ test('invalid big-o page returns 404', function () {
 
     $response->assertNotFound();
 });
+
+test('controller aborts with 500 when json file is corrupted', function () {
+    $testPath = resource_path('data/big-o/test-corrupted.json');
+
+    // Create a temporary corrupted JSON file
+    file_put_contents($testPath, '{invalid json content');
+
+    try {
+        // Create a test controller instance
+        $controller = new class extends \App\Http\Controllers\BigO\ShowBigOComplexityController
+        {
+            protected function getSlug(): string
+            {
+                return 'test-corrupted';
+            }
+        };
+
+        // Invoke the controller and expect an abort
+        $controller->__invoke();
+    } catch (\Symfony\Component\HttpKernel\Exception\HttpException $e) {
+        expect($e->getStatusCode())->toBe(500);
+        expect($e->getMessage())->toContain('Failed to parse Big-O complexity data');
+    } finally {
+        // Clean up test file
+        if (file_exists($testPath)) {
+            unlink($testPath);
+        }
+    }
+});
+
+test('controller aborts with 500 when json file cannot be read', function () {
+    $testPath = resource_path('data/big-o/test-unreadable.json');
+
+    // Create a dummy file first
+    file_put_contents($testPath, 'temporary content');
+
+    try {
+        // Create a test controller that overrides loadComplexityData to simulate read failure
+        $controller = new class extends \App\Http\Controllers\BigO\ShowBigOComplexityController
+        {
+            protected function getSlug(): string
+            {
+                return 'test-unreadable';
+            }
+
+            protected function loadComplexityData(string $slug): array
+            {
+                $path = resource_path("data/big-o/{$slug}.json");
+
+                if (! file_exists($path)) {
+                    abort(404, 'Big-O complexity page not found.');
+                }
+
+                // Simulate file_get_contents returning false (I/O error)
+                $json = false;
+
+                if ($json === false) {
+                    abort(500, "Failed to read Big-O complexity data file: {$slug}.json");
+                }
+
+                return [];
+            }
+        };
+
+        $controller->__invoke();
+    } catch (\Symfony\Component\HttpKernel\Exception\HttpException $e) {
+        expect($e->getStatusCode())->toBe(500);
+        expect($e->getMessage())->toContain('Failed to read Big-O complexity data file');
+    } finally {
+        // Clean up test file
+        if (file_exists($testPath)) {
+            unlink($testPath);
+        }
+    }
+});

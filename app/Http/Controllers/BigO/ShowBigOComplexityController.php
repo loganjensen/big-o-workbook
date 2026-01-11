@@ -50,6 +50,16 @@ abstract class ShowBigOComplexityController extends Controller
 
         $json = file_get_contents($path);
 
-        return json_decode($json, true);
+        if ($json === false) {
+            abort(500, "Failed to read Big-O complexity data file: {$slug}.json");
+        }
+
+        $data = json_decode($json, true);
+
+        if ($data === null || json_last_error() !== JSON_ERROR_NONE) {
+            abort(500, 'Failed to parse Big-O complexity data: '.json_last_error_msg());
+        }
+
+        return $data;
     }
 }

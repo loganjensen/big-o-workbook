@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import KeyTakeaways from '@/components/BigO/KeyTakeaways.vue';
 import PseudocodeBlock from '@/components/BigO/PseudocodeBlock.vue';
-import { Head, Link } from '@inertiajs/vue3';
 import { login } from '@/routes';
 import { index as bigOIndex } from '@/routes/big-o';
 import { getBigORoute } from '@/utils/bigORoutes';
+import { Head, Link } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
 
 interface Example {
@@ -58,7 +58,7 @@ onMounted(() => {
 
 // Find current index for previous/next navigation
 const currentIndex = props.allComplexities.findIndex(
-    (c) => c.slug === props.slug
+    (c) => c.slug === props.slug,
 );
 const prevComplexity =
     currentIndex > 0 ? props.allComplexities[currentIndex - 1] : null;
@@ -79,14 +79,19 @@ const metaDescription = props.complexity.description.substring(0, 160);
     <div class="min-h-screen bg-background">
         <!-- Simple Header -->
         <header class="border-b border-border bg-card">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <Link :href="bigOIndex().url" class="text-xl font-bold text-foreground">
+            <div
+                class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+            >
+                <Link
+                    :href="bigOIndex().url"
+                    class="text-xl font-bold text-foreground"
+                >
                     Big-O Workbook
                 </Link>
                 <Link
                     v-if="!$page.props.auth?.user"
                     :href="login()"
-                    class="rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                    class="rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
                 >
                     Log in
                 </Link>
@@ -114,7 +119,9 @@ const metaDescription = props.complexity.description.substring(0, 160);
                 <h2 class="text-2xl font-semibold text-foreground">
                     Intuition
                 </h2>
-                <p class="text-base leading-7 text-muted-foreground whitespace-pre-line">
+                <p
+                    class="text-base leading-7 whitespace-pre-line text-muted-foreground"
+                >
                     {{ complexity.intuition }}
                 </p>
             </section>
@@ -142,7 +149,7 @@ const metaDescription = props.complexity.description.substring(0, 160);
                     What Causes This Complexity
                 </h2>
                 <div
-                    class="prose prose-slate dark:prose-invert max-w-none text-muted-foreground whitespace-pre-line"
+                    class="prose prose-slate dark:prose-invert max-w-none whitespace-pre-line text-muted-foreground"
                 >
                     {{ complexity.whatCausesThis }}
                 </div>
@@ -154,7 +161,7 @@ const metaDescription = props.complexity.description.substring(0, 160);
                     Why It Matters
                 </h2>
                 <div
-                    class="prose prose-slate dark:prose-invert max-w-none text-muted-foreground whitespace-pre-line"
+                    class="prose prose-slate dark:prose-invert max-w-none whitespace-pre-line text-muted-foreground"
                 >
                     {{ complexity.whyItMatters }}
                 </div>
@@ -173,7 +180,7 @@ const metaDescription = props.complexity.description.substring(0, 160);
                     <Link
                         v-if="prevComplexity"
                         :href="getBigORoute(prevComplexity.slug)"
-                        class="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 py-2"
+                        class="group inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +211,7 @@ const metaDescription = props.complexity.description.substring(0, 160);
                     <Link
                         v-if="nextComplexity"
                         :href="getBigORoute(nextComplexity.slug)"
-                        class="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 py-2"
+                        class="group inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
                     >
                         <div class="text-right">
                             <div class="text-xs text-muted-foreground">

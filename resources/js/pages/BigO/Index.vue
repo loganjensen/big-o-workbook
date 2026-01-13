@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
 import { login } from '@/routes';
 import { index as bigOIndex } from '@/routes/big-o';
 import { getBigORoute } from '@/utils/bigORoutes';
+import { Head, Link } from '@inertiajs/vue3';
 
 interface Complexity {
     slug: string;
@@ -29,14 +29,19 @@ defineProps<Props>();
     <div class="min-h-screen bg-background">
         <!-- Simple Header -->
         <header class="border-b border-border bg-card">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <Link :href="bigOIndex().url" class="text-xl font-bold text-foreground">
+            <div
+                class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+            >
+                <Link
+                    :href="bigOIndex().url"
+                    class="text-xl font-bold text-foreground"
+                >
                     Big-O Workbook
                 </Link>
                 <Link
                     v-if="!$page.props.auth?.user"
                     :href="login()"
-                    class="rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                    class="rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
                 >
                     Log in
                 </Link>
@@ -50,16 +55,14 @@ defineProps<Props>();
                 >
                     Big-O Notation
                 </h1>
-                <p
-                    class="text-lg leading-8 text-muted-foreground max-w-3xl"
-                >
-                    Big-O notation describes how algorithms scale as input grows.
-                    It's not about exact timing—it's about understanding growth
-                    patterns. Whether you're optimizing code or preparing for
-                    interviews, these fundamentals will help you write more
+                <p class="max-w-3xl text-lg leading-8 text-muted-foreground">
+                    Big-O notation describes how algorithms scale as input
+                    grows. It's not about exact timing—it's about understanding
+                    growth patterns. Whether you're optimizing code or preparing
+                    for interviews, these fundamentals will help you write more
                     efficient software.
                 </p>
-                <p class="text-base text-muted-foreground max-w-3xl">
+                <p class="max-w-3xl text-base text-muted-foreground">
                     Each complexity class below explains what it means, when
                     it's acceptable, and how to recognize it in real code. Start
                     with O(1) and work your way through—or jump to the
@@ -73,11 +76,11 @@ defineProps<Props>();
                     v-for="complexity in complexities"
                     :key="complexity.slug"
                     :href="getBigORoute(complexity.slug)"
-                    class="group relative overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-md hover:shadow-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                    class="group relative overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-md hover:shadow-primary/10 focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:outline-none"
                 >
                     <div class="space-y-2">
                         <h2
-                            class="text-2xl font-semibold text-foreground group-hover:text-primary transition-colors"
+                            class="text-2xl font-semibold text-foreground transition-colors group-hover:text-primary"
                         >
                             {{ complexity.shortTitle }}
                         </h2>
@@ -88,7 +91,7 @@ defineProps<Props>();
 
                     <!-- Arrow icon -->
                     <div
-                        class="absolute right-4 top-4 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary"
+                        class="absolute top-4 right-4 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -109,9 +112,7 @@ defineProps<Props>();
             </div>
 
             <!-- Footer Note -->
-            <div
-                class="mt-12 rounded-lg border border-border bg-muted/50 p-6"
-            >
+            <div class="mt-12 rounded-lg border border-border bg-muted/50 p-6">
                 <p class="text-sm text-muted-foreground">
                     <strong class="text-foreground">Note:</strong> These pages
                     focus on conceptual understanding, not mathematical proofs.

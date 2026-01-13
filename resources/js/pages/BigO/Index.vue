@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import { login } from '@/routes';
+import { index as bigOIndex } from '@/routes/big-o';
+import { getBigORoute } from '@/utils/bigORoutes';
 
 interface Complexity {
     slug: string;
@@ -28,7 +30,7 @@ defineProps<Props>();
         <!-- Simple Header -->
         <header class="border-b border-border bg-card">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <Link href="/big-o" class="text-xl font-bold text-foreground">
+                <Link :href="bigOIndex().url" class="text-xl font-bold text-foreground">
                     Big-O Workbook
                 </Link>
                 <Link
@@ -70,7 +72,7 @@ defineProps<Props>();
                 <Link
                     v-for="complexity in complexities"
                     :key="complexity.slug"
-                    :href="`/big-o/${complexity.slug}`"
+                    :href="getBigORoute(complexity.slug)"
                     class="group relative overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-md hover:shadow-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                     <div class="space-y-2">

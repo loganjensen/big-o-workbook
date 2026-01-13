@@ -14,16 +14,14 @@ use Laravel\WorkOS\Http\Middleware\ValidateSessionWithWorkOS;
 
 Route::get('/', fn () => Inertia::render('Welcome'));
 
-Route::prefix('big-o')->name('big-o.')->group(function () {
-    Route::get('/', [BigOController::class, 'index'])->name('index');
-    Route::get('/o-1', ShowO1Controller::class)->name('o-1');
-    Route::get('/o-log-n', ShowOLogNController::class)->name('o-log-n');
-    Route::get('/o-n', ShowONController::class)->name('o-n');
-    Route::get('/o-n-log-n', ShowONLogNController::class)->name('o-n-log-n');
-    Route::get('/o-n-squared', ShowONSquaredController::class)->name('o-n-squared');
-    Route::get('/o-2-n', ShowO2NController::class)->name('o-2-n');
-    Route::get('/o-n-factorial', ShowONFactorialController::class)->name('o-n-factorial');
-});
+Route::get('/big-o', [BigOController::class, 'index'])->name('big-o.index');
+Route::get('/o-1', ShowO1Controller::class)->name('big-o.o-1');
+Route::get('/o-log-n', ShowOLogNController::class)->name('big-o.o-log-n');
+Route::get('/o-n', ShowONController::class)->name('big-o.o-n');
+Route::get('/o-n-log-n', ShowONLogNController::class)->name('big-o.o-n-log-n');
+Route::get('/o-n-squared', ShowONSquaredController::class)->name('big-o.o-n-squared');
+Route::get('/o-2-n', ShowO2NController::class)->name('big-o.o-2-n');
+Route::get('/o-n-factorial', ShowONFactorialController::class)->name('big-o.o-n-factorial');
 
 Route::middleware([
     'auth',

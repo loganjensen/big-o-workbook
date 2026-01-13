@@ -20,7 +20,7 @@ test('big-o index page has correct complexity metadata', function () {
 });
 
 test('o-1 constant time page loads successfully', function () {
-    $response = $this->get('/big-o/o-1');
+    $response = $this->get('/o-1');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -37,7 +37,7 @@ test('o-1 constant time page loads successfully', function () {
 });
 
 test('o-log-n logarithmic time page loads successfully', function () {
-    $response = $this->get('/big-o/o-log-n');
+    $response = $this->get('/o-log-n');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -48,7 +48,7 @@ test('o-log-n logarithmic time page loads successfully', function () {
 });
 
 test('o-n linear time page loads successfully', function () {
-    $response = $this->get('/big-o/o-n');
+    $response = $this->get('/o-n');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -59,7 +59,7 @@ test('o-n linear time page loads successfully', function () {
 });
 
 test('o-n-log-n linearithmic time page loads successfully', function () {
-    $response = $this->get('/big-o/o-n-log-n');
+    $response = $this->get('/o-n-log-n');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -70,7 +70,7 @@ test('o-n-log-n linearithmic time page loads successfully', function () {
 });
 
 test('o-n-squared quadratic time page loads successfully', function () {
-    $response = $this->get('/big-o/o-n-squared');
+    $response = $this->get('/o-n-squared');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -81,7 +81,7 @@ test('o-n-squared quadratic time page loads successfully', function () {
 });
 
 test('o-2-n exponential time page loads successfully', function () {
-    $response = $this->get('/big-o/o-2-n');
+    $response = $this->get('/o-2-n');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -92,7 +92,7 @@ test('o-2-n exponential time page loads successfully', function () {
 });
 
 test('o-n-factorial factorial time page loads successfully', function () {
-    $response = $this->get('/big-o/o-n-factorial');
+    $response = $this->get('/o-n-factorial');
 
     $response->assertSuccessful();
     $response->assertInertia(fn ($page) => $page
@@ -130,7 +130,7 @@ test('all big-o pages have required json structure', function () {
 });
 
 test('all big-o show pages include navigation data', function () {
-    $response = $this->get('/big-o/o-1');
+    $response = $this->get('/o-1');
 
     $response->assertInertia(fn ($page) => $page
         ->has('allComplexities', 7)
@@ -139,7 +139,7 @@ test('all big-o show pages include navigation data', function () {
 });
 
 test('invalid big-o page returns 404', function () {
-    $response = $this->get('/big-o/o-invalid');
+    $response = $this->get('/o-invalid');
 
     $response->assertNotFound();
 });

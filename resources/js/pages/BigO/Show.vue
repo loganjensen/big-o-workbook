@@ -3,6 +3,8 @@ import KeyTakeaways from '@/components/BigO/KeyTakeaways.vue';
 import PseudocodeBlock from '@/components/BigO/PseudocodeBlock.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { login } from '@/routes';
+import { index as bigOIndex } from '@/routes/big-o';
+import { getBigORoute } from '@/utils/bigORoutes';
 import { onMounted } from 'vue';
 
 interface Example {
@@ -78,7 +80,7 @@ const metaDescription = props.complexity.description.substring(0, 160);
         <!-- Simple Header -->
         <header class="border-b border-border bg-card">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <Link href="/big-o" class="text-xl font-bold text-foreground">
+                <Link :href="bigOIndex().url" class="text-xl font-bold text-foreground">
                     Big-O Workbook
                 </Link>
                 <Link
@@ -170,7 +172,7 @@ const metaDescription = props.complexity.description.substring(0, 160);
                 <div>
                     <Link
                         v-if="prevComplexity"
-                        :href="`/big-o/${prevComplexity.slug}`"
+                        :href="getBigORoute(prevComplexity.slug)"
                         class="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 py-2"
                     >
                         <svg
@@ -201,7 +203,7 @@ const metaDescription = props.complexity.description.substring(0, 160);
                 <div>
                     <Link
                         v-if="nextComplexity"
-                        :href="`/big-o/${nextComplexity.slug}`"
+                        :href="getBigORoute(nextComplexity.slug)"
                         class="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-md px-3 py-2"
                     >
                         <div class="text-right">

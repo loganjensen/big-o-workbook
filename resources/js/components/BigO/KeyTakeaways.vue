@@ -8,7 +8,7 @@ defineProps<Props>();
 
 <template>
     <div
-        class="rounded-lg border-l-4 border-l-primary bg-primary/5 p-6 space-y-4"
+        class="space-y-4 rounded-lg border-l-4 border-l-primary bg-primary/5 p-6"
     >
         <h3 class="text-lg font-semibold text-foreground">Key Takeaways</h3>
 
@@ -19,7 +19,9 @@ defineProps<Props>();
                 class="flex gap-3 text-sm leading-relaxed text-foreground"
             >
                 <!-- Bullet point -->
-                <span class="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                <span
+                    class="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary"
+                />
 
                 <!-- Takeaway text -->
                 <span>{{ takeaway }}</span>

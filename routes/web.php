@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BigO\BigOQuizController;
 use App\Http\Controllers\BigO\ShowO1Controller;
 use App\Http\Controllers\BigO\ShowO2NController;
 use App\Http\Controllers\BigO\ShowOLogNController;
@@ -22,6 +23,11 @@ Route::get('/o-n-log-n', ShowONLogNController::class)->name('big-o.o-n-log-n');
 Route::get('/o-n-squared', ShowONSquaredController::class)->name('big-o.o-n-squared');
 Route::get('/o-2-n', ShowO2NController::class)->name('big-o.o-2-n');
 Route::get('/o-n-factorial', ShowONFactorialController::class)->name('big-o.o-n-factorial');
+
+Route::prefix('api/big-o')->name('api.big-o.')->group(function () {
+    Route::get('/{slug}/quiz', [BigOQuizController::class, 'show'])->name('quiz.show');
+    Route::post('/{slug}/quiz/regenerate', [BigOQuizController::class, 'regenerate'])->name('quiz.regenerate');
+});
 
 Route::middleware([
     'auth',

@@ -34,8 +34,10 @@ class BigOQuizController extends Controller
 
             return response()->json($quiz);
         } catch (\Exception $e) {
+            report($e);
+
             return response()->json([
-                'error' => $e->getMessage(),
+                'error' => 'Internal server error',
             ], 500);
         }
     }
@@ -58,8 +60,10 @@ class BigOQuizController extends Controller
 
             return response()->json($quiz);
         } catch (\Exception $e) {
+            report($e);
+
             return response()->json([
-                'error' => $e->getMessage(),
+                'error' => 'Internal server error',
             ], 500);
         }
     }

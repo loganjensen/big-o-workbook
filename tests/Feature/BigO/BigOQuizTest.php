@@ -99,7 +99,9 @@ test('quiz endpoint handles service failures gracefully', function () {
     $response = $this->get('/api/big-o/o-n/quiz');
 
     $response->assertStatus(500)
-        ->assertJsonStructure(['error']);
+        ->assertJson([
+            'error' => 'Internal server error',
+        ]);
 });
 
 test('quiz returns correct number of questions', function () {
@@ -264,4 +266,20 @@ test('regenerate endpoint rate limiting is per IP address', function () {
         'REMOTE_ADDR' => '192.168.1.2',
     ]);
     $response->assertStatus(429);
+});
+
+test('regenerate endpoint handles service failures gracefully', function () {
+    $this->mock(BigOQuizService::class, function ($mock) {
+        $mock->shouldReceive('regenerate')
+            ->with('o-n')
+            ->once()
+            ->andThrow(new Exception('Failed to regenerate quiz. Please try again.'));
+    });
+
+    $response = $this->post('/api/big-o/o-n/quiz/regenerate');
+
+    $response->assertStatus(500)
+        ->assertJson([
+            'error' => 'Internal server error',
+        ]);
 });

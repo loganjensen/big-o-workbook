@@ -45,4 +45,13 @@ return [
             'description' => 'All possible arrangements',
         ],
     ],
+
+    'quiz' => [
+        'question_count' => env('BIG_O_QUIZ_QUESTIONS', 5),
+        'cache_ttl' => env('BIG_O_QUIZ_CACHE_TTL', 604800), // 7 days in seconds
+        'cache_version' => env('BIG_O_QUIZ_CACHE_VERSION', 1),
+        'anthropic_model' => env('BIG_O_QUIZ_MODEL', 'claude-3-5-sonnet-20241022'),
+        'max_tokens' => 4000,
+        'temperature' => 0.7,
+    ],
 ];

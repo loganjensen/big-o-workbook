@@ -17,12 +17,12 @@ defineProps<Props>();
             class="overflow-x-auto rounded-lg border border-border bg-muted/50 p-4"
         >
             <pre
-                class="text-sm leading-relaxed text-foreground font-mono"
+                class="font-mono text-sm leading-relaxed text-foreground"
             ><code>{{ pseudocode }}</code></pre>
         </div>
 
         <!-- Explanation -->
-        <p class="text-sm text-muted-foreground leading-relaxed">
+        <p class="text-sm leading-relaxed text-muted-foreground">
             {{ explanation }}
         </p>
     </div>

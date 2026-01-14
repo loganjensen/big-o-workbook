@@ -1,4 +1,12 @@
-import { o1, oLogN, oN, oNLogN, oNSquared, o2N, oNFactorial } from '@/routes/big-o';
+import {
+    o1,
+    o2N,
+    oLogN,
+    oN,
+    oNFactorial,
+    oNLogN,
+    oNSquared,
+} from '@/routes/big-o';
 
 /**
  * Maps Big-O complexity slugs to their corresponding Wayfinder route functions.

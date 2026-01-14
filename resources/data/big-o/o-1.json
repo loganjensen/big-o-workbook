@@ -1,36 +1,36 @@
 {
-  "title": "O(1) — Constant Time",
-  "description": "An algorithm runs in O(1) time when it takes the same amount of time to execute, no matter how large the input becomes. Whether you're working with 10 items or 10 million items, the operation completes in the same number of steps. This is the best possible time complexity you can achieve.",
-  "intuition": "Think of accessing a specific locker in a locker room when you already know the locker number. It doesn't matter if there are 50 lockers or 5,000 lockers — you walk directly to locker #42 and open it. You don't need to check any other lockers first. That's constant time: the size of the locker room doesn't affect how long it takes to reach your destination.",
-  "examples": [
-    {
-      "title": "Array Index Access",
-      "pseudocode": "array = [10, 20, 30, 40, 50]\nvalue = array[2]\nreturn value",
-      "explanation": "Accessing an element at a specific index in an array is O(1). Arrays store elements in contiguous memory, so the computer can calculate the exact memory address instantly using simple arithmetic, regardless of array size."
-    },
-    {
-      "title": "Hash Table Lookup",
-      "pseudocode": "hashTable = {\"alice\": 25, \"bob\": 30, \"charlie\": 35}\nage = hashTable[\"bob\"]\nreturn age",
-      "explanation": "Looking up a value by key in a hash table is O(1) on average. The hash function computes where the value is stored, allowing direct access without searching through other entries."
-    },
-    {
-      "title": "Stack Push/Pop Operations",
-      "pseudocode": "stack = [1, 2, 3]\nstack.push(4)        // Add to top\ntopItem = stack.pop() // Remove from top\nreturn topItem",
-      "explanation": "Adding or removing items from the top of a stack is O(1) because you only work with the last element. You never need to look at or move any other elements in the stack."
-    },
-    {
-      "title": "Checking a Boolean Flag",
-      "pseudocode": "isLoggedIn = true\nif isLoggedIn:\n    return \"Welcome back!\"\nelse:\n    return \"Please log in\"",
-      "explanation": "Reading a variable or checking a boolean condition is O(1). The computer accesses the value directly from memory in a single step, regardless of what else exists in your program."
-    }
-  ],
-  "whatCausesThis": "O(1) complexity occurs when an operation requires a fixed number of steps that don't depend on input size. Common causes include:\n\n• **Direct memory access**: Arrays, pointers, and references allow you to jump straight to a memory location\n• **Mathematical calculations**: Simple arithmetic (addition, multiplication, modulo) takes constant time\n• **Hash-based lookups**: Hash tables compute an index directly from the key\n• **Single comparisons**: Checking one condition or comparing two values\n• **Fixed operations**: Any sequence of operations that doesn't involve loops or recursion over the input\n\nThe key is that you're never iterating through the data. You perform the same operations every time, whether the input has 5 elements or 5 billion.",
-  "whyItMatters": "**When It's Acceptable:**\nO(1) operations are always acceptable. They're the gold standard of efficiency. You can perform constant-time operations millions of times per second without worry. They scale perfectly — your algorithm performs just as well with massive datasets as it does with tiny ones.\n\n**Where It Becomes Critical:**\nIn performance-critical systems, replacing O(n) or O(n²) operations with O(1) operations can mean the difference between a responsive app and one that crawls. For example:\n\n• **Real-time systems**: Video games, trading platforms, and embedded systems rely on constant-time operations to meet strict timing requirements\n• **High-throughput services**: APIs serving thousands of requests per second need constant-time lookups to maintain speed\n• **Mobile applications**: Battery-constrained devices benefit enormously from operations that don't scale with data size\n\nHowever, remember that \"constant\" doesn't mean \"instant.\" An O(1) operation could still be slow if the constant factor is large. For instance, encrypting data might be O(1) relative to your dataset size but still take milliseconds. In practice, a well-optimized O(n) algorithm can outperform a poorly implemented O(1) algorithm on small inputs.",
-  "keyTakeaways": [
-    "O(1) means the operation takes the same time regardless of input size — it's the best possible complexity",
-    "Array index access and hash table lookups are classic O(1) operations because they use direct addressing",
-    "No loops over the input data means constant time — you're doing a fixed number of steps every time",
-    "Constant time doesn't mean instantaneous — the actual speed depends on what those constant steps involve",
-    "When optimizing, look for opportunities to replace loops with direct access patterns (like using a hash table instead of searching through an array)"
-  ]
+    "title": "O(1) — Constant Time",
+    "description": "An algorithm runs in O(1) time when it takes the same amount of time to execute, no matter how large the input becomes. Whether you're working with 10 items or 10 million items, the operation completes in the same number of steps. This is the best possible time complexity you can achieve.",
+    "intuition": "Think of accessing a specific locker in a locker room when you already know the locker number. It doesn't matter if there are 50 lockers or 5,000 lockers — you walk directly to locker #42 and open it. You don't need to check any other lockers first. That's constant time: the size of the locker room doesn't affect how long it takes to reach your destination.",
+    "examples": [
+        {
+            "title": "Array Index Access",
+            "pseudocode": "array = [10, 20, 30, 40, 50]\nvalue = array[2]\nreturn value",
+            "explanation": "Accessing an element at a specific index in an array is O(1). Arrays store elements in contiguous memory, so the computer can calculate the exact memory address instantly using simple arithmetic, regardless of array size."
+        },
+        {
+            "title": "Hash Table Lookup",
+            "pseudocode": "hashTable = {\"alice\": 25, \"bob\": 30, \"charlie\": 35}\nage = hashTable[\"bob\"]\nreturn age",
+            "explanation": "Looking up a value by key in a hash table is O(1) on average. The hash function computes where the value is stored, allowing direct access without searching through other entries."
+        },
+        {
+            "title": "Stack Push/Pop Operations",
+            "pseudocode": "stack = [1, 2, 3]\nstack.push(4)        // Add to top\ntopItem = stack.pop() // Remove from top\nreturn topItem",
+            "explanation": "Adding or removing items from the top of a stack is O(1) because you only work with the last element. You never need to look at or move any other elements in the stack."
+        },
+        {
+            "title": "Checking a Boolean Flag",
+            "pseudocode": "isLoggedIn = true\nif isLoggedIn:\n    return \"Welcome back!\"\nelse:\n    return \"Please log in\"",
+            "explanation": "Reading a variable or checking a boolean condition is O(1). The computer accesses the value directly from memory in a single step, regardless of what else exists in your program."
+        }
+    ],
+    "whatCausesThis": "O(1) complexity occurs when an operation requires a fixed number of steps that don't depend on input size. Common causes include:\n\n• **Direct memory access**: Arrays, pointers, and references allow you to jump straight to a memory location\n• **Mathematical calculations**: Simple arithmetic (addition, multiplication, modulo) takes constant time\n• **Hash-based lookups**: Hash tables compute an index directly from the key\n• **Single comparisons**: Checking one condition or comparing two values\n• **Fixed operations**: Any sequence of operations that doesn't involve loops or recursion over the input\n\nThe key is that you're never iterating through the data. You perform the same operations every time, whether the input has 5 elements or 5 billion.",
+    "whyItMatters": "**When It's Acceptable:**\nO(1) operations are always acceptable. They're the gold standard of efficiency. You can perform constant-time operations millions of times per second without worry. They scale perfectly — your algorithm performs just as well with massive datasets as it does with tiny ones.\n\n**Where It Becomes Critical:**\nIn performance-critical systems, replacing O(n) or O(n²) operations with O(1) operations can mean the difference between a responsive app and one that crawls. For example:\n\n• **Real-time systems**: Video games, trading platforms, and embedded systems rely on constant-time operations to meet strict timing requirements\n• **High-throughput services**: APIs serving thousands of requests per second need constant-time lookups to maintain speed\n• **Mobile applications**: Battery-constrained devices benefit enormously from operations that don't scale with data size\n\nHowever, remember that \"constant\" doesn't mean \"instant.\" An O(1) operation could still be slow if the constant factor is large. For instance, encrypting data might be O(1) relative to your dataset size but still take milliseconds. In practice, a well-optimized O(n) algorithm can outperform a poorly implemented O(1) algorithm on small inputs.",
+    "keyTakeaways": [
+        "O(1) means the operation takes the same time regardless of input size — it's the best possible complexity",
+        "Array index access and hash table lookups are classic O(1) operations because they use direct addressing",
+        "No loops over the input data means constant time — you're doing a fixed number of steps every time",
+        "Constant time doesn't mean instantaneous — the actual speed depends on what those constant steps involve",
+        "When optimizing, look for opportunities to replace loops with direct access patterns (like using a hash table instead of searching through an array)"
+    ]
 }

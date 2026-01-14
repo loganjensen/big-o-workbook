@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import KeyTakeaways from '@/components/BigO/KeyTakeaways.vue';
 import PseudocodeBlock from '@/components/BigO/PseudocodeBlock.vue';
+import Quiz from '@/components/BigO/Quiz.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { login } from '@/routes';
 import { index as bigOIndex } from '@/routes/big-o';
@@ -163,6 +164,18 @@ const metaDescription = props.complexity.description.substring(0, 160);
             <!-- Key Takeaways -->
             <section>
                 <KeyTakeaways :takeaways="complexity.keyTakeaways" />
+            </section>
+
+            <!-- Quiz Section -->
+            <section class="space-y-4">
+                <h2 class="text-2xl font-semibold text-foreground">
+                    Practice Quiz
+                </h2>
+                <p class="text-sm text-muted-foreground">
+                    Test your understanding with AI-generated code analysis
+                    questions.
+                </p>
+                <Quiz :slug="slug" />
             </section>
 
             <!-- Navigation -->

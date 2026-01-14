@@ -1,0 +1,74 @@
+{
+  "questions": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "code": "function findMax(arr) {\n  let max = arr[0];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > max) max = arr[i];\n  }\n  return max;\n}",
+      "language": "javascript",
+      "question": "What is the time complexity of this code?",
+      "options": [
+        {"id": "opt-1", "text": "O(n)", "isCorrect": true},
+        {"id": "opt-2", "text": "O(1)", "isCorrect": false},
+        {"id": "opt-3", "text": "O(log n)", "isCorrect": false},
+        {"id": "opt-4", "text": "O(n²)", "isCorrect": false}
+      ],
+      "explanation": "This code iterates through the array exactly once to find the maximum value. Since we examine each element once, the time complexity is O(n), where n is the length of the array.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "code": "def count_occurrences(arr, target):\n    count = 0\n    for element in arr:\n        if element == target:\n            count += 1\n    return count",
+      "language": "python",
+      "question": "What is the time complexity of this code?",
+      "options": [
+        {"id": "opt-1", "text": "O(n)", "isCorrect": true},
+        {"id": "opt-2", "text": "O(1)", "isCorrect": false},
+        {"id": "opt-3", "text": "O(log n)", "isCorrect": false},
+        {"id": "opt-4", "text": "O(n²)", "isCorrect": false}
+      ],
+      "explanation": "The function iterates through the entire array once, checking each element. This is a linear scan, resulting in O(n) time complexity.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440003",
+      "code": "function reverseArray(arr) {\n  const result = [];\n  for (let i = arr.length - 1; i >= 0; i--) {\n    result.push(arr[i]);\n  }\n  return result;\n}",
+      "language": "javascript",
+      "question": "What is the time complexity of this code?",
+      "options": [
+        {"id": "opt-1", "text": "O(n)", "isCorrect": true},
+        {"id": "opt-2", "text": "O(1)", "isCorrect": false},
+        {"id": "opt-3", "text": "O(log n)", "isCorrect": false},
+        {"id": "opt-4", "text": "O(n²)", "isCorrect": false}
+      ],
+      "explanation": "The loop runs exactly n times (where n is the array length), pushing each element into a new array. Each push operation is O(1), so the total complexity is O(n).",
+      "difficulty": "medium"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440004",
+      "code": "$filtered = [];\nforeach ($array as $item) {\n    if ($item % 2 === 0) {\n        $filtered[] = $item;\n    }\n}\nreturn $filtered;",
+      "language": "php",
+      "question": "What is the time complexity of this code?",
+      "options": [
+        {"id": "opt-1", "text": "O(n)", "isCorrect": true},
+        {"id": "opt-2", "text": "O(1)", "isCorrect": false},
+        {"id": "opt-3", "text": "O(log n)", "isCorrect": false},
+        {"id": "opt-4", "text": "O(n²)", "isCorrect": false}
+      ],
+      "explanation": "This filtering operation examines each element of the array exactly once. The modulo and array append operations are both O(1), making the overall complexity O(n).",
+      "difficulty": "medium"
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440005",
+      "code": "function hasElement(arr, target) {\n  for (let i = 0; i < arr.length; i++) {\n    if (arr[i] === target) {\n      return true;\n    }\n  }\n  return false;\n}",
+      "language": "javascript",
+      "question": "What is the time complexity of this code?",
+      "options": [
+        {"id": "opt-1", "text": "O(n)", "isCorrect": true},
+        {"id": "opt-2", "text": "O(1)", "isCorrect": false},
+        {"id": "opt-3", "text": "O(log n)", "isCorrect": false},
+        {"id": "opt-4", "text": "O(n²)", "isCorrect": false}
+      ],
+      "explanation": "This is a linear search. In the worst case (element not found or at the end), we check all n elements. Even though it may return early, the worst-case time complexity is O(n).",
+      "difficulty": "hard"
+    }
+  ]
+}

@@ -177,3 +177,91 @@ test('quiz works for all complexity types', function (string $slug) {
     'o-2-n',
     'o-n-factorial',
 ]);
+
+test('regenerate endpoint allows up to 10 requests per minute', function () {
+    $mockQuiz = [
+        'slug' => 'o-n',
+        'questions' => json_decode(file_get_contents(__DIR__.'/../../Fixtures/quiz-responses/o-n-quiz.json'), true)['questions'],
+        'generatedAt' => now()->toIso8601String(),
+    ];
+
+    $this->mock(BigOQuizService::class, function ($mock) use ($mockQuiz) {
+        $mock->shouldReceive('regenerate')
+            ->with('o-n')
+            ->times(10)
+            ->andReturn($mockQuiz);
+    });
+
+    for ($i = 0; $i < 10; $i++) {
+        $response = $this->post('/api/big-o/o-n/quiz/regenerate');
+        $response->assertSuccessful();
+    }
+});
+
+test('regenerate endpoint returns 429 after rate limit exceeded', function () {
+    $mockQuiz = [
+        'slug' => 'o-n',
+        'questions' => json_decode(file_get_contents(__DIR__.'/../../Fixtures/quiz-responses/o-n-quiz.json'), true)['questions'],
+        'generatedAt' => now()->toIso8601String(),
+    ];
+
+    $this->mock(BigOQuizService::class, function ($mock) use ($mockQuiz) {
+        $mock->shouldReceive('regenerate')
+            ->with('o-n')
+            ->times(10)
+            ->andReturn($mockQuiz);
+    });
+
+    // Make 10 successful requests
+    for ($i = 0; $i < 10; $i++) {
+        $response = $this->post('/api/big-o/o-n/quiz/regenerate');
+        $response->assertSuccessful();
+    }
+
+    // 11th request should be rate limited
+    $response = $this->post('/api/big-o/o-n/quiz/regenerate');
+    $response->assertStatus(429);
+});
+
+test('regenerate endpoint rate limiting is per IP address', function () {
+    $mockQuiz = [
+        'slug' => 'o-n',
+        'questions' => json_decode(file_get_contents(__DIR__.'/../../Fixtures/quiz-responses/o-n-quiz.json'), true)['questions'],
+        'generatedAt' => now()->toIso8601String(),
+    ];
+
+    $this->mock(BigOQuizService::class, function ($mock) use ($mockQuiz) {
+        $mock->shouldReceive('regenerate')
+            ->with('o-n')
+            ->times(20)
+            ->andReturn($mockQuiz);
+    });
+
+    // Make 10 requests from first IP
+    for ($i = 0; $i < 10; $i++) {
+        $response = $this->post('/api/big-o/o-n/quiz/regenerate', [], [
+            'REMOTE_ADDR' => '192.168.1.1',
+        ]);
+        $response->assertSuccessful();
+    }
+
+    // Make 10 requests from second IP (should also succeed)
+    for ($i = 0; $i < 10; $i++) {
+        $response = $this->post('/api/big-o/o-n/quiz/regenerate', [], [
+            'REMOTE_ADDR' => '192.168.1.2',
+        ]);
+        $response->assertSuccessful();
+    }
+
+    // 11th request from first IP should be rate limited
+    $response = $this->post('/api/big-o/o-n/quiz/regenerate', [], [
+        'REMOTE_ADDR' => '192.168.1.1',
+    ]);
+    $response->assertStatus(429);
+
+    // But second IP can still make one more request
+    $response = $this->post('/api/big-o/o-n/quiz/regenerate', [], [
+        'REMOTE_ADDR' => '192.168.1.2',
+    ]);
+    $response->assertStatus(429);
+});
